@@ -20,122 +20,49 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.vinicius.model.Cliente;
 import br.com.vinicius.repositories.ClienteRepository;
 
-
 @RestController
 @RequestMapping("/api/cliente")
 @CrossOrigin(origins = "*")
 public class ClienteController {
-	
 
-	
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@GetMapping("{email}")
 	public Cliente cliente(@PathVariable String email) {
 		return clienteRepository.findByEmail(email)
-				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
-	
+
 	@GetMapping
-	public List<Cliente> findAllClientes(Cliente filtro){	
-        ExampleMatcher matcher = ExampleMatcher
-                .matching()
-                .withIgnoreCase()
-                .withStringMatcher(
-                        ExampleMatcher.StringMatcher.CONTAINING );
-       Example example = Example.of(filtro, matcher);
+	public List<Cliente> findAllClientes(Cliente filtro) {
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase()
+				.withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+		Example example = Example.of(filtro, matcher);
 		return clienteRepository.findAll(example);
 	}
-	
+
 	@GetMapping("teste")
 	public String teste() {
 		return "teste";
 	}
-	
+
 	@DeleteMapping("{email}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteById( @PathVariable String email ) {
-		clienteRepository.findByEmail(email)
-        .map( cliente -> {
-        	clienteRepository.delete(cliente );
-            return cliente;
-        })
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "Cliente não encontrado") );
+	public void deleteById(@PathVariable String email) {
+		clienteRepository.findByEmail(email).map(cliente -> {
+			clienteRepository.delete(cliente);
+			return cliente;
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 	}
-	
-  @PutMapping("{email}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void update( @PathVariable  String email,
-                      @RequestBody Cliente cliente ){
-	  clienteRepository
-              .findByEmail(email)
-              .map( clienteExistente -> {
-                  cliente.setEmail(clienteExistente.getEmail());
-                  clienteRepository.save(cliente);
-                  return clienteExistente;
-              }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                  "Cliente não encontrado") );
-  }
-  
-  
 
-	
-//	@Autowired
-//	private ClienteRepository repository;
-//	
-//	@GetMapping("{id}")
-//	public Cliente getClienteByID(@PathVariable Long id) {
-//		return repository.findById(id)
-//				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
-//	}
-//	
-//	@PostMapping
-//	@ResponseStatus(HttpStatus.CREATED)
-//    public Cliente save( @RequestBody Cliente cliente ){
-//
-//		cliente.setCadastro(LocalDate.now());
-//        return repository.save(cliente);
-//    }
-//	
-//	@GetMapping
-//	public List<Cliente> findAllClientes(Cliente filtro){
-//		
-//        ExampleMatcher matcher = ExampleMatcher
-//                .matching()
-//                .withIgnoreCase()
-//                .withStringMatcher(
-//                        ExampleMatcher.StringMatcher.CONTAINING );
-//       Example example = Example.of(filtro, matcher);
-//		return repository.findAll(example);
-//	}
-//	
-//	@DeleteMapping("{id}")
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public void deleteById( @PathVariable Long id ) {
-//        repository.findById(id)
-//        .map( cliente -> {
-//            repository.delete(cliente );
-//            return cliente;
-//        })
-//        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                "Cliente não encontrado") );
-//	}
-//	
-//    @PutMapping("{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void update( @PathVariable Long id,
-//                        @RequestBody Cliente cliente ){
-//    	repository
-//                .findById(id)
-//                .map( clienteExistente -> {
-//                    cliente.setId(clienteExistente.getId());
-//                    repository.save(cliente);
-//                    return clienteExistente;
-//                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                    "Cliente não encontrado") );
-//    }
-//	
-	
+	@PutMapping("{email}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void update(@PathVariable String email, @RequestBody Cliente cliente) {
+		clienteRepository.findByEmail(email).map(clienteExistente -> {
+			cliente.setEmail(clienteExistente.getEmail());
+			clienteRepository.save(cliente);
+			return clienteExistente;
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+	}
 }

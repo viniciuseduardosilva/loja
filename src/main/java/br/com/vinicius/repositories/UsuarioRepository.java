@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.vinicius.model.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, String>{
-	
+public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 	Optional<Usuario> findByLogin(String email);
+	boolean existsByLogin(String email);
 	
-
 }

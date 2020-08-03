@@ -19,7 +19,7 @@ import br.com.vinicius.model.Cliente;
 
 @Component
 public class ClienteCriteria {
-	
+
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -42,5 +42,4 @@ public class ClienteCriteria {
 		TypedQuery<Cliente> typedQuery = manager.createQuery(query);
 		return typedQuery.getResultList();
 	}
-
 }

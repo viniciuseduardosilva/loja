@@ -15,14 +15,14 @@ import br.com.vinicius.model.Usuario;
 import br.com.vinicius.repositories.UsuarioRepository;
 
 @Service
-public class UsuarioServImpl implements UserDetailsService{
+public class UsuarioServImpl implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder enconder;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
 		return usuarioRepository.save(usuario);
@@ -30,32 +30,17 @@ public class UsuarioServImpl implements UserDetailsService{
 
 	public UserDetails autentica(Usuario usuario) {
 		UserDetails user = loadUserByUsername(usuario.getLogin());
-		boolean senhaCorreta = enconder.matches(usuario.getSenha()
-												, user.getPassword());
-		if(senhaCorreta) {
+		boolean senhaCorreta = enconder.matches(usuario.getSenha(), user.getPassword());
+		if (senhaCorreta) {
 			return user;
 		}
 		throw new PasswordInvalidException();
 	}
-	
-	
+
 	@Override
-	public UserDetails loadUserByUsername(String email) 
-			throws UsernameNotFoundException {
-		
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Usuario user = usuarioRepository.findByLogin(email)
 				.orElseThrow(() -> new UsernameNotFoundException("usuario nao encontrado"));
-		
-		
-		
-		return User
-				.builder()
-				.password(user.getSenha())
-				.roles(user.getRoles())
-				.username(user.getLogin())
-				.build();
+		return User.builder().password(user.getSenha()).roles(user.getRoles()).username(user.getLogin()).build();
 	}
-	
-	
-
 }

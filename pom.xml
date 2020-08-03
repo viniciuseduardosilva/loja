@@ -21,7 +21,7 @@
 
 	<dependencies>
 
-		<!-- Starter Spring -->
+		<!-- ************** Starter Spring *******************-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -32,13 +32,13 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- WEB -->
+		<!-- ******************** WEB *********************** -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Banco de Dados -->
+		<!-- *************** Banco de Dados ****************** -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,7 +50,7 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
-		<!-- lombok -->
+		<!-- ***************** lombok *************************-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -58,7 +58,7 @@
 		</dependency>
 
 
-		<!-- Security e JWT -->
+		<!-- ****************** Security e JWT *******************-->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -70,7 +70,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!-- Email -->
+		<!-- ****************** Email **************************-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
@@ -86,12 +86,25 @@
 			<artifactId>thymeleaf</artifactId>
 		</dependency>
 
-		<!-- logger -->
+		<!-- ******************* logger *********************** -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j</artifactId>
 			<version>1.3.8.RELEASE</version>
 		</dependency>
+		
+		<!-- ******************* Swagger *********************** -->
+		 <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
 
 	</dependencies>
 

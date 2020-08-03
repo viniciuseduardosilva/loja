@@ -33,7 +33,7 @@ public class ClienteDtoService {
 		Usuario usuario = usuarioRepository.findByLogin(email)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 		String token = jwtService.gerarToken(usuario);
-		emailService.sendEmail(email, token);
+		emailService.novaSenha(email, token);
 	}
 
 	public void salvaClienteDto(Usuario usuario, Cliente cliente) {
@@ -54,6 +54,8 @@ public class ClienteDtoService {
 		Usuario usuario = usuarioRepository.findByLogin(email)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 		String novaSenha = enconder.encode(senha);
+		
 		usuario.setSenha(novaSenha);
+		usuarioRepository.save(usuario);
 	}
 }

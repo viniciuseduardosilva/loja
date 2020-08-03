@@ -10,8 +10,6 @@ import br.com.vinicius.model.Cliente;
 import br.com.vinicius.repositories.ClienteCriteria;
 import br.com.vinicius.repositories.ClienteRepository;
 
-
-
 @Service
 public class ClienteService {
 	
@@ -20,7 +18,6 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repository;
-	
 	
 	public List<Cliente> consulta(String dataInicial, String dataFinal) {
 		LocalDate dataIni = LocalDate.now();
@@ -38,5 +35,4 @@ public class ClienteService {
 	public boolean buscaEmail(String email) {
 		return repository.existsByEmail(email);
 	}
-
 }
